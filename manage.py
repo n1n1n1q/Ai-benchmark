@@ -1,9 +1,15 @@
-from selenium.webdriver.support.wait import WebDriverWait
+"""
+Management script for AI analyzer
+"""
+import argparse
 
-from core.chrome import ChromeClient
 
 
-with ChromeClient() as client:
+def crawl(args):
+    """Crawl"""
 
-    client.get("https://chat.openai.com")
-    input()
+
+ACTIONS = {
+    "crawl": crawl,
+    "asses"
+}
