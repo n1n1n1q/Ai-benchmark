@@ -1,6 +1,7 @@
 """
 Management script for AI analyzer
 """
+
 import sys
 import argparse
 import importlib
@@ -33,7 +34,7 @@ ACTIONS = {
 
 argument_parser = argparse.ArgumentParser()
 argument_parser.add_argument("action", choices=ACTIONS)
-argument_parser.add_argument('--crawler-name', help="Crawler name", required=False)
+argument_parser.add_argument("--crawler-name", help="Crawler name", required=False)
 
 args = argument_parser.parse_args()
 

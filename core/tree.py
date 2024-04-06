@@ -9,10 +9,19 @@ from bs4 import BeautifulSoup
 class Node:
     """Page representation"""
 
-    def __init__(self, name=None, parent: Node = None, page_url=None,
-                 page_content=None, node_id=None, layer=0):
+    def __init__(
+        self,
+        name=None,
+        parent: Node = None,
+        page_url=None,
+        page_content=None,
+        node_id=None,
+        layer=0,
+    ):
         self.name = name
-        self.node_id = node_id if node_id else hashlib.md5(self.name.encode()).hexdigest()
+        self.node_id = (
+            node_id if node_id else hashlib.md5(self.name.encode()).hexdigest()
+        )
         self.page_url = page_url
         self.page_content = page_content
         self.properties = {}
@@ -38,7 +47,9 @@ class Node:
         if self.parent:
             self.parent.remove_child(self)
 
-    def add_children(self, name, page_url=None, page_content=None, node_id=None) -> Node:
+    def add_children(
+        self, name, page_url=None, page_content=None, node_id=None
+    ) -> Node:
         """Add child pages"""
         if page_url:
             new_node = Node(name=name, page_url=page_url, node_id=node_id)

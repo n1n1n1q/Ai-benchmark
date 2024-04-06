@@ -14,12 +14,13 @@ import os
 
 RESPONSE_TIMEOUT = 10
 
+
 def get_latest_chromedriver_path():
     try:
         home_dir = os.path.expanduser("~")
-        sub_path = os.path.join('drivers', 'chromedriver', 'linux64')
-        driver_name = 'chromedriver'
-        path = os.path.join(home_dir, '.wdm', sub_path)
+        sub_path = os.path.join("drivers", "chromedriver", "linux64")
+        driver_name = "chromedriver"
+        path = os.path.join(home_dir, ".wdm", sub_path)
         subfolders = [f.path for f in os.scandir(path) if f.is_dir()]
         # Extract versions from the folder names
         versions = [folder.split(os.sep)[-1] for folder in subfolders]
@@ -35,8 +36,10 @@ def get_latest_chromedriver_path():
 class ChromeClient(webdriver.Chrome):
 
     def __init__(self):
-        service = Service(executable_path=get_latest_chromedriver_path(),
-                          log_path="tmp/geckodriver.log")
+        service = Service(
+            executable_path=get_latest_chromedriver_path(),
+            log_path="tmp/geckodriver.log",
+        )
 
         options = self.__create_options()
         super().__init__(options=options)
@@ -48,7 +51,7 @@ class ChromeClient(webdriver.Chrome):
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close()
 
-    def bs4(self, source=None, tab=None, features='html.parser'):
+    def bs4(self, source=None, tab=None, features="html.parser"):
         """Return page or tabs's BeautifulSoup"""
         return BeautifulSoup(source or self.page_source, features)
 
@@ -57,8 +60,9 @@ class ChromeClient(webdriver.Chrome):
 
         super().get(url)
         try:
-            WebDriverWait(self, timeout=timeout, poll_frequency=1.5) \
-                .until(EC.presence_of_element_located((By.XPATH, "/html/body")))
+            WebDriverWait(self, timeout=timeout, poll_frequency=1.5).until(
+                EC.presence_of_element_located((By.XPATH, "/html/body"))
+            )
         except UnexpectedAlertPresentException:
             pass
 
@@ -67,4 +71,3 @@ class ChromeClient(webdriver.Chrome):
         options = ChromiumOptions()
         options.add_experimental_option("detach", True)
         return options
-

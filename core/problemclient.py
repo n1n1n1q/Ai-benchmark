@@ -3,8 +3,7 @@ from abc import ABC, abstractmethod
 
 class Output:
 
-    def __init__(self, text: str, passed_count: int,
-                 failed_count, total_time: int):
+    def __init__(self, text: str, passed_count: int, failed_count, total_time: int):
 
         self.text = text
         self.passed_count = passed_count
