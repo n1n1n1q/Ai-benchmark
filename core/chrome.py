@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 from distutils.version import LooseVersion
 from selenium import webdriver
 from selenium.common import UnexpectedAlertPresentException
+from selenium.webdriver import ActionChains
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import ChromiumOptions
 from selenium.webdriver.support.wait import WebDriverWait
@@ -39,6 +40,7 @@ class ChromeClient(webdriver.Chrome):
 
         options = self.__create_options()
         super().__init__(options=options)
+        self.actions = ActionChains(self)
 
     def __enter__(self):
         return self
