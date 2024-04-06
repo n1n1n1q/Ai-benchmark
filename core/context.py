@@ -4,8 +4,9 @@ Module for contexts
 import time
 import requests
 
+from core.chrome import ChromeClient
 from settings import CrawlingSettings
-from crawler import Node, Tree
+from tree import Node, Tree
 
 
 class Context:
@@ -51,3 +52,19 @@ class Context:
                     break
                 time.sleep(2 * counter)
         return response
+
+
+class SeleniumContext(Context):
+
+    def __init__(self, settings: CrawlingSettings):
+        super().__init__(settings)
+
+        self.client = ChromeClient()
+        self.client.get(self.settings.base_url)
+
+    def fetch_current_node(self) -> ChromeClient:
+        self.client.get(self.current_node.page_url)
+        return self.client
+
+    def finish(self):
+        self.client.close()

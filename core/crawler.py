@@ -44,7 +44,6 @@ class CrawlerWorker:
             if not deepest_node.children:
                 deepest_node.parent.remove_child(deepest_node)
             deepest_node = self.find_unpocessed_node()
-        self.context.finish()
 
     def try_process_n_times(self, process_function):
         """
@@ -94,7 +93,7 @@ class Crawler:
         except Exception:  # pylint: disable=broad-except
             trb = traceback.format_exc()
             print(trb)
-            for output in self.settings.outputs.values():
-                output.force_close()
         except KeyboardInterrupt:
             print("Parsing is stopped!")
+        finally:
+            self.context.finish()
