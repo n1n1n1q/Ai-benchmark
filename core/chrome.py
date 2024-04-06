@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 from distutils.version import LooseVersion
 from selenium import webdriver
 from selenium.common import UnexpectedAlertPresentException
@@ -44,6 +45,10 @@ class ChromeClient(webdriver.Chrome):
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close()
+
+    def bs4(self, source=None, tab=None, features='html.parser'):
+        """Return page or tabs's BeautifulSoup"""
+        return BeautifulSoup(source or self.page_source, features)
 
     def get(self, url, timeout=RESPONSE_TIMEOUT):
         """Load page by url and wait untill body is loaded"""
