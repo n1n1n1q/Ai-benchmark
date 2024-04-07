@@ -1,9 +1,16 @@
+from selenium.webdriver.common.by import By
+
+from core.chrome import ChromeClient
 from core.problemclient import ProblemClient, Output
 
 
-class CodewarsClient(ProblemClient):
+class CodewarsOutput(Output):
+    pass
 
-    def open_problem(self, problem) -> None:
+
+class CodewarsClient(ChromeClient, ProblemClient):
+
+    def open_problem(self, problem_url: str) -> None:
         pass
 
     def set_code_input_text(self, code: str) -> None:
