@@ -1,4 +1,5 @@
 """Crawler module"""
+
 from __future__ import annotations
 import traceback
 from settings import CrawlingSettings
@@ -6,6 +7,7 @@ from settings import CrawlingSettings
 
 class Layer:
     """Tree layer"""
+
     def __init__(self, name, process_function, multi_worker_processing=False):
         self.name = name
         self.process_function = process_function
@@ -34,8 +36,13 @@ class CrawlerWorker:
         while deepest_node != self.root_node:
             self.context.current_node = deepest_node
 
-            print("--" * deepest_node.layer, deepest_node.name, "==",
-                  deepest_node.parent.name, deepest_node.page_url)
+            print(
+                "--" * deepest_node.layer,
+                deepest_node.name,
+                "==",
+                deepest_node.parent.name,
+                deepest_node.page_url,
+            )
 
             self.try_process_n_times(
                 self.context.settings.layers[deepest_node.layer].process_function
@@ -63,7 +70,7 @@ class CrawlerWorker:
                     break
 
     def find_unpocessed_node(self):
-        """Return deepest unprocessed node""" 
+        """Return deepest unprocessed node"""
         node = self.context.tree.root
         while node.children:
             node = node.children[0]
@@ -81,8 +88,9 @@ class Crawler:
         self.context = self.settings.context_class(settings=settings)
 
         self.root_node = self.context.tree.add_root_node(
-                         name=self.settings.layers[Crawler.ROOT_LAYER_INDEX].name,
-                         page_url=self.context.settings.base_url)
+            name=self.settings.layers[Crawler.ROOT_LAYER_INDEX].name,
+            page_url=self.context.settings.base_url,
+        )
         self.context.current_node = self.root_node
         self.base_parser_worker = CrawlerWorker(self.context, root_node=self.root_node)
 

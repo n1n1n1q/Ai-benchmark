@@ -1,6 +1,7 @@
 """
 Management script for AI analyzer
 """
+
 import sys
 import argparse
 import importlib

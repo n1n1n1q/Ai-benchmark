@@ -1,6 +1,7 @@
 """
 Module for contexts
 """
+
 import time
 import requests
 
@@ -46,7 +47,7 @@ class Context:
             try:
                 response = requests.get(url, timeout=10)
                 break
-            except Exception: # pylint: disable=broad-except
+            except Exception:  # pylint: disable=broad-except
                 counter += 1
                 if counter > 10:
                     break
