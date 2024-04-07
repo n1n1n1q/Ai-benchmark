@@ -11,7 +11,7 @@ from core.crawler import Crawler, Layer
 from core.settings import CrawlingSettings
 
 SCROLL_NUM = 10
-WAIT_TIME = 0.1
+WAIT_TIME = 0.5
 
 
 def process_base(context: SeleniumContext):
@@ -31,14 +31,24 @@ def process_tasks(context: SeleniumContext):
     soup = client.bs4(response.content, "html.parser")
     kyus = soup.findAll(attrs={"class": "ml-2"})
     for kyu in kyus:
-        kyu = str(kyu)
-        kyu = kyu.split(" ")[2].split('"')[1]
-        context.current_node.add_children(f"https://www.codewars.com+{kyu}")
+        kyu_ = str(kyu)
+        kyu_ = kyu_.split(" ")[2].split('"')[1]
+        print(kyu)
+        # print(f"LINK: https://www.codewars.com{kyu}")
+        context.current_node.add_children(
+            name=f"task {kyus.index(kyu)}", page_url=f"https://www.codewars.com{kyu_}"
+        )
 
 
 def process_kyu(context: SeleniumContext):
-    # TODO
-    pass
+    client = context.fetch_current_node()
+    sleep(WAIT_TIME)
+    name = client.find_element(By.CLASS_NAME, "ml-2").text
+    description = client.find_element(By.ID, "description").text
+    tags = client.find_elements(By.CLASS_NAME, "keyword-tag")
+    tags = [i.text for i in tags]
+    kyu = {"name": name, "description": description, "tags": tags}
+    print(tags)
 
 
 crawler = Crawler(
