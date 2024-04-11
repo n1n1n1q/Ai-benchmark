@@ -1,4 +1,12 @@
-from peewee import CharField, TextField, ForeignKeyField, DateTimeField, BooleanField, FloatField, IntegerField
+from peewee import (
+    CharField,
+    TextField,
+    ForeignKeyField,
+    DateTimeField,
+    BooleanField,
+    FloatField,
+    IntegerField,
+)
 from core.db import BaseModel, db
 
 
@@ -18,7 +26,7 @@ class Tag(BaseModel):
     Tag for problem
     """
 
-    problem = ForeignKeyField(Problem, backref='tags')
+    problem = ForeignKeyField(Problem, backref="tags")
     name = CharField(max_length=64)
 
 
@@ -40,7 +48,7 @@ class Submission(BaseModel):
     and info about submission
     """
 
-    thread = ForeignKeyField(Thread, backref='submissions')
+    thread = ForeignKeyField(Thread, backref="submissions")
     message = TextField()
     response = TextField()
 

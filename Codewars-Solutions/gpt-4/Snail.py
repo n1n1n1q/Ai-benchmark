@@ -1,7 +1,7 @@
 def snail(snail_map):
     if snail_map == [[]]:
         return []
-    
+
     result = []
     while snail_map:
         # add the first row to result

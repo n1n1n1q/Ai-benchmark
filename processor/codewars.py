@@ -8,5 +8,7 @@ class CodewarsProcessor(Processor):
     def process_problem(self, problem):
         print(123)
 
-processor = CodewarsProcessor(aiclient_class=ChatGPTClient, problem_client_class=CodewarsClient)
 
+processor = CodewarsProcessor(
+    aiclient_class=ChatGPTClient, problem_client_class=CodewarsClient
+)
