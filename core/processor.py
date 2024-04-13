@@ -8,7 +8,9 @@ from core.models import Problem
 
 class Processor(ABC):
 
-    def __init__(self, aiclient_class: Type[AIClient], problem_client_class: Type[ProblemClient]):
+    def __init__(
+        self, aiclient_class: Type[AIClient], problem_client_class: Type[ProblemClient]
+    ):
         self.aiclient_class = aiclient_class
         self.problem_client_class = problem_client_class
         self.problems = Problem.select()

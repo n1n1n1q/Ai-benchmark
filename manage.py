@@ -44,15 +44,13 @@ def process():
 
     processor.process()
 
-ACTIONS = {
-    "crawl": crawl,
-    'process': process
-}
+
+ACTIONS = {"crawl": crawl, "process": process}
 
 argument_parser = argparse.ArgumentParser()
 argument_parser.add_argument("action", choices=ACTIONS)
-argument_parser.add_argument('--crawler-name', help="Crawler name", required=False)
-argument_parser.add_argument('--processor-name', help="Processor name", required=False)
+argument_parser.add_argument("--crawler-name", help="Crawler name", required=False)
+argument_parser.add_argument("--processor-name", help="Processor name", required=False)
 
 args = argument_parser.parse_args()
 
