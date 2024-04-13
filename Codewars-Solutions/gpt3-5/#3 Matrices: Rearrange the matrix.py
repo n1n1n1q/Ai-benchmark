@@ -27,7 +27,3 @@ def rearr(matrix):
     # If no rearrangement gives a determinant of 0, return -1
     return -1
 
-
-# Test the function
-matrix = [[2, 1], [3, 6]]
-print(rearr(matrix))

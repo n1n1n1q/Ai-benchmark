@@ -41,3 +41,18 @@ def update_score(current_score, called_trump, alone, tricks):
         new_score[1] += trump_points
 
     return new_score
+
+
+# working solution
+def update_score(sc, trmp, alone, trks):
+    tot = trks.count(trmp)
+    if tot <= 2:
+        sc[trmp % 2] += 2
+    elif 3 <= tot <= 4:
+        sc[trmp - 1] += 1
+    elif tot >= 5 and not alone:
+        sc[trmp - 1] += 2
+    elif tot >= 5 and alone:
+        sc[trmp - 1] += 4
+
+    return sc
