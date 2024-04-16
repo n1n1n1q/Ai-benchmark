@@ -3,7 +3,8 @@ def factorial(n):
     if n == 0:
         return 1
     else:
-        return n * factorial(n-1)
+        return n * factorial(n - 1)
+
 
 def strong_num(number):
     """Determine if a number is a strong number."""

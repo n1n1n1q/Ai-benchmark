@@ -1,5 +1,6 @@
 import math
 
+
 def dioph_solver(z_max):
     solutions = []
     total_solutions = 0
@@ -7,7 +8,7 @@ def dioph_solver(z_max):
     for z in range(4, z_max + 1):
         y_max = math.floor(math.sqrt((z * z * z) / 3))
         for y in range(1, y_max + 1):
-            x_squared = z ** 3 - 3 * y ** 2
+            x_squared = z**3 - 3 * y**2
             x = int(math.isqrt(x_squared))
             if x * x == x_squared and x > 0 and x * x + 3 * y * y == z * z * z:
                 total_solutions += 1

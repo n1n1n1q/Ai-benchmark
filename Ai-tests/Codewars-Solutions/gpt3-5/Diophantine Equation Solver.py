@@ -1,5 +1,6 @@
 import math
 
+
 def dioph_solver(z_max):
     max_z = 0
     solutions = []
@@ -22,6 +23,7 @@ def dioph_solver(z_max):
     sorted_solutions = sorted(solutions, key=lambda s: (sum(s), -s[0]))
 
     return [total_solutions, sorted_solutions]
+
 
 # Test case
 print(dioph_solver(66))  # Output: [43, [[256, 256, 64]]]
