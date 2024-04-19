@@ -163,3 +163,4 @@ cython_debug/
 
 analyzer.db
 test.py
+ai_tests/
