@@ -48,9 +48,11 @@ hdi = cbrt(life_exp_index * edu_index * gni_index)
 
 min_index = min(life_exp_index, gni_index, edu_index)
 
-print(f"Life expectancy index for {country_name} is {life_exp_index:.4f}.\n"
+print(
+    f"Life expectancy index for {country_name} is {life_exp_index:.4f}.\n"
     f"Education index for {country_name} is {edu_index:.4f}.\n"
     f"GNI index for {country_name} is {gni_index:.4f}.\n"
     f"HDI for {country_name} is {hdi:.3f}.\n"
     f"HDI for {country_name} is high: {hdi > 0.7}.\n"
-    f"The worst index for {country_name} is {min_index:.4f}.")
+    f"The worst index for {country_name} is {min_index:.4f}."
+)

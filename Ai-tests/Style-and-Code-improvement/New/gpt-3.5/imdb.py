@@ -4,6 +4,7 @@ Keyword processor
 
 from collections import Counter
 
+
 def find_film_keywords(film_keywords: dict, film_name: str) -> set:
     """
     Returns set of keywords for a certain film.
@@ -50,6 +51,8 @@ def find_films_with_keywords(film_keywords: dict, num_of_films: int) -> list:
     sorted_films = sorted(film_counts.items(), key=lambda x: (-x[1], x[0]))
     return sorted_films[:num_of_films]
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     import doctest
+
     print(doctest.testmod())

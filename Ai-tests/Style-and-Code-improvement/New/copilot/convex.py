@@ -5,8 +5,17 @@ import doctest
 lab4.2
 """
 
-def four_lines_area(koef1: float, const1: float, koef2: float, const2: float,
-                    koef3: float, const3: float, koef4: float, const4: float) -> float:
+
+def four_lines_area(
+    koef1: float,
+    const1: float,
+    koef2: float,
+    const2: float,
+    koef3: float,
+    const3: float,
+    koef4: float,
+    const4: float,
+) -> float:
     """
     Find and return the area of a convex quadrangle
     >>> four_lines_area(1, 2, 1, 3, 1, 4, 1, 5)
@@ -30,11 +39,9 @@ def four_lines_area(koef1: float, const1: float, koef2: float, const2: float,
     except TypeError:
         return 0
 
+
 def lines_intersection(
-    koef1: float,
-    const1: float,
-    koef2: float,
-    const2: float
+    koef1: float, const1: float, koef2: float, const2: float
 ) -> tuple[float, float]:
     """
     Find and return the point of intersection of two lines
@@ -61,8 +68,14 @@ def distance(px1: float, py1: float, px2: float, py2: float) -> float:
     return round(math.hypot(px2 - px1, py2 - py1), 2)
 
 
-def quadrangle_area(side_a: float, side_b: float, side_c: float,
-                    side_d: float, diag_f1: float, diag_f2: float) -> float:
+def quadrangle_area(
+    side_a: float,
+    side_b: float,
+    side_c: float,
+    side_d: float,
+    diag_f1: float,
+    diag_f2: float,
+) -> float:
     """
     Find and return quadrangle's area. If the quadrangle doesn't exist, return None
     >>> quadrangle_area(3, 4, 3, 4, 5, 5)
@@ -73,8 +86,8 @@ def quadrangle_area(side_a: float, side_b: float, side_c: float,
         return None
     if diag_f1 <= 0 or diag_f2 <= 0:
         return None
-    quad_square1 = 4 * (diag_f1 ** 2) * (diag_f2 ** 2)
-    quad_square2 = (side_b ** 2 + side_d ** 2 - side_a ** 2 - side_c ** 2) ** 2
+    quad_square1 = 4 * (diag_f1**2) * (diag_f2**2)
+    quad_square2 = (side_b**2 + side_d**2 - side_a**2 - side_c**2) ** 2
     quad_square = ((quad_square1 - quad_square2) / 16) ** 0.5
     return round(quad_square, 2) if quad_square1 > quad_square2 else None
 

@@ -31,6 +31,7 @@ import math
 MIN_LIFE, MIN_SCH, MIN_MEAN, MIN_GNI = 20, 0, 0, 100
 MAX_LIFE, MAX_SCH, MAX_MEAN, MAX_GNI = 85, 18, 15, 75000
 
+
 def calculate_index(country_name, life_exp, exp_sch_years, mean_sch_years, gni):
     """
     Calculate the Human Development Index (HDI) for a country.
@@ -46,7 +47,9 @@ def calculate_index(country_name, life_exp, exp_sch_years, mean_sch_years, gni):
     life_exp_index = (life_exp - MIN_LIFE) / (MAX_LIFE - MIN_LIFE)
     exp_sch_index = (exp_sch_years - MIN_SCH) / (MAX_SCH - MIN_SCH)
     mean_sch_index = (mean_sch_years - MIN_MEAN) / (MAX_MEAN - MIN_MEAN)
-    gni_index = (math.log(gni) - math.log(MIN_GNI)) / (math.log(MAX_GNI) - math.log(MIN_GNI))
+    gni_index = (math.log(gni) - math.log(MIN_GNI)) / (
+        math.log(MAX_GNI) - math.log(MIN_GNI)
+    )
     edu_index = (exp_sch_index + mean_sch_index) / 2
 
     hdi = math.cbrt(life_exp_index * edu_index * gni_index)
@@ -56,7 +59,10 @@ def calculate_index(country_name, life_exp, exp_sch_years, mean_sch_years, gni):
     print(f"GNI index for {country_name} is {gni_index:.4f}.")
     print(f"HDI for {country_name} is {hdi:.3f}.")
     print(f"HDI for {country_name} is high: {hdi > 0.7}.")
-    print(f"The worst index for {country_name} is {min(life_exp_index, gni_index, edu_index):.4f}.")
+    print(
+        f"The worst index for {country_name} is {min(life_exp_index, gni_index, edu_index):.4f}."
+    )
+
 
 if __name__ == "__main__":
     country = input("Enter country name: ")

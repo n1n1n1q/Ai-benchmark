@@ -2,8 +2,17 @@
 lab4.2: Convex Quadrangle Area Calculator
 """
 
-def four_lines_area(koef1: float, const1: float, koef2: float, const2: float,
-                    koef3: float, const3: float, koef4: float, const4: float) -> float:
+
+def four_lines_area(
+    koef1: float,
+    const1: float,
+    koef2: float,
+    const2: float,
+    koef3: float,
+    const3: float,
+    koef4: float,
+    const4: float,
+) -> float:
     """
     Find and return the area of a convex quadrangle
     >>> four_lines_area(1, 2, 1, 3, 1, 4, 1, 5)
@@ -35,7 +44,9 @@ def four_lines_area(koef1: float, const1: float, koef2: float, const2: float,
         return 0
 
 
-def lines_intersection(koef1: float, const1: float, koef2: float, const2: float) -> tuple:
+def lines_intersection(
+    koef1: float, const1: float, koef2: float, const2: float
+) -> tuple:
     """
     Find and return the point of intersection of two lines
     If lines are parallel, return None
@@ -65,8 +76,14 @@ def distance(px1: float, py1: float, px2: float, py2: float) -> float:
     return round(dist, 2)
 
 
-def quadrangle_area(side_a: float, side_b: float, side_c: float,
-                    side_d: float, diag_f1: float, diag_f2: float) -> float:
+def quadrangle_area(
+    side_a: float,
+    side_b: float,
+    side_c: float,
+    side_d: float,
+    diag_f1: float,
+    diag_f2: float,
+) -> float:
     """
     Find and return quadrangle's area. If the quadrangle doesn't exist, return None
     >>> quadrangle_area(3, 4, 3, 4, 5, 5)
@@ -74,10 +91,17 @@ def quadrangle_area(side_a: float, side_b: float, side_c: float,
     >>> quadrangle_area(10, 11, 1, 2, 1, 1)
 
     """
-    if side_a <= 0 or side_b <= 0 or side_c <= 0 or side_d <= 0 or diag_f1 <= 0 or diag_f2 <= 0:
+    if (
+        side_a <= 0
+        or side_b <= 0
+        or side_c <= 0
+        or side_d <= 0
+        or diag_f1 <= 0
+        or diag_f2 <= 0
+    ):
         return None
-    quad_square1 = 4 * (diag_f1 ** 2) * (diag_f2 ** 2)
-    quad_square2 = (side_b ** 2 + side_d ** 2 - side_a ** 2 - side_c ** 2) ** 2
+    quad_square1 = 4 * (diag_f1**2) * (diag_f2**2)
+    quad_square2 = (side_b**2 + side_d**2 - side_a**2 - side_c**2) ** 2
     quad_square = ((quad_square1 - quad_square2) / 16) ** 0.5
     if quad_square1 <= quad_square2:
         return None
@@ -86,4 +110,5 @@ def quadrangle_area(side_a: float, side_b: float, side_c: float,
 
 if __name__ == "__main__":
     import doctest
+
     print(doctest.testmod())

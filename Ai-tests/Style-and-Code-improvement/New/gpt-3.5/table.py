@@ -2,7 +2,8 @@
 Table gtp-3.5
 """
 
-def table(n,m):
+
+def table(n, m):
     table = [[1] * m for _ in range(n)]
     for i in range(1, n):
         for j in range(1, m):

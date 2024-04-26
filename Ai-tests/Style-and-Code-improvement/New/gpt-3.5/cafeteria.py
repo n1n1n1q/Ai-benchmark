@@ -1,35 +1,20 @@
 """Cafeteroum"""
 
-
 RECIPE = {
-        "espresso": {
-            'espresso': 30},
-        "latte": {
-            'espresso': 60,
-            'steamed_milk': 120, 
-            'foamed_milk': 15},
-        "macchiato": {
-            'espresso': 60,
-            'foamed_milk': 15},
-        "flat white": {
-            'espresso': 60,
-            'steamed_milk': 120},
-        "dopio": {
-            'espresso': 60},
-        "cappuccino": {
-            'espresso': 60,
-            'steamed_milk': 60, 
-            'foamed_milk': 60},
-        "lungo": {
-            'espresso': 90},
-        "cortado": {
-            'espresso': 60,
-            'steamed_milk': 60}
-            }
+    "espresso": {"espresso": 30},
+    "latte": {"espresso": 60, "steamed_milk": 120, "foamed_milk": 15},
+    "macchiato": {"espresso": 60, "foamed_milk": 15},
+    "flat white": {"espresso": 60, "steamed_milk": 120},
+    "dopio": {"espresso": 60},
+    "cappuccino": {"espresso": 60, "steamed_milk": 60, "foamed_milk": 60},
+    "lungo": {"espresso": 90},
+    "cortado": {"espresso": 60, "steamed_milk": 60},
+}
 
 
 class Coffee:
     """Coffee object"""
+
     __recipe = {}
 
     def __init__(self, name: str, count: int = 1) -> None:
@@ -47,19 +32,21 @@ class Coffee:
     @property
     def espresso(self):
         """Return quantity of espresso in coffee"""
-        return self.__recipe.get(self.name, {}).get('espresso', 0) * self.count
+        return self.__recipe.get(self.name, {}).get("espresso", 0) * self.count
 
     @property
     def beans(self) -> int:
         """Return number of beans to prepare this coffee"""
-        espresso_per_shot = self.__recipe.get('espresso', {}).get('espresso', 0)
+        espresso_per_shot = self.__recipe.get("espresso", {}).get("espresso", 0)
         return (self.espresso // espresso_per_shot) * 6
 
     @property
     def milk(self):
         """Return quantity of milk in coffee"""
         recipe = self.__recipe.get(self.name, {})
-        milk_for_one_coffee = recipe.get("steamed_milk", 0) + recipe.get("foamed_milk", 0)
+        milk_for_one_coffee = recipe.get("steamed_milk", 0) + recipe.get(
+            "foamed_milk", 0
+        )
         return milk_for_one_coffee * self.count
 
     def __str__(self) -> str:
@@ -86,7 +73,7 @@ class FlavorMixin:
 
     def add_flavor(self, sugar: int, cinammon: bool, syrup: str) -> str:
         """Add flavor to coffe"""
-        if not getattr(self, 'is_paid', False):
+        if not getattr(self, "is_paid", False):
             return "Please, pay for it."
 
         self.sugar = self.count * sugar
@@ -112,11 +99,11 @@ class CustomCoffee(Coffee, FlavorMixin):
         if not self.flavor:
             return super().__str__()
         flavors = []
-        if getattr(self, 'sugar', 0):
+        if getattr(self, "sugar", 0):
             flavors.append(f"{self.sugar} stickers of sugar")
-        if getattr(self, 'cinammon', False):
+        if getattr(self, "cinammon", False):
             flavors.append("cinammon")
-        if getattr(self, 'syrup', ""):
+        if getattr(self, "syrup", ""):
             flavors.append(f"{self.syrup} syrup")
         return f"Your best {self.name} is ready! It has: {', '.join(flavors)}."
 
@@ -126,23 +113,26 @@ class CustomCoffee(Coffee, FlavorMixin):
 
     def __eq__(self, other: "CustomCoffee") -> bool:
         """Compare two custom coffees"""
-        flavor_eq = getattr(self, 'sugar', 0) == getattr(other, 'sugar', 0) and \
-                    getattr(self, 'cinammon', False) == getattr(other, 'cinammon', False) and \
-                    getattr(self, 'syrup', '') == getattr(other, 'syrup', '')
+        flavor_eq = (
+            getattr(self, "sugar", 0) == getattr(other, "sugar", 0)
+            and getattr(self, "cinammon", False) == getattr(other, "cinammon", False)
+            and getattr(self, "syrup", "") == getattr(other, "syrup", "")
+        )
         return super().__eq__(other) and flavor_eq
 
 
 class Track:
     """Daily orders tracker"""
+
     MENU = {
-        "espresso":  40,
+        "espresso": 40,
         "latte": 70,
         "flat white": 70,
-        "dopio":  50,
-        "cappuccino":  60,
+        "dopio": 50,
+        "cappuccino": 60,
         "lungo": 50,
         "cortado": 55,
-        "mocca": 60
+        "mocca": 60,
     }
 
     __beans = 5000
@@ -211,4 +201,3 @@ class Track:
     def total_beans(self) -> int:
         """Return total coffe bean consumption of day"""
         return sum(order.beans for order in self.orders)
-

@@ -1,7 +1,9 @@
 """
 Keyword processor
 """
-def find_film_keywords(film_keywords: dict, film_name: str)-> set():
+
+
+def find_film_keywords(film_keywords: dict, film_name: str) -> set():
     """
     Returns list of keywords for a certain film.
     >>> keywords={'unwashed-dishes': ['Withnail & I (1987)'], 'civil-war-monument': ['Without Li\
@@ -18,7 +20,7 @@ plosion': ['Without a Paddle (2004)']}
     return set(key for key in film_keywords if film_keywords[key].count(film_name))
 
 
-def find_films_with_keywords(film_keywords: dict, num_of_films: int)-> list:
+def find_films_with_keywords(film_keywords: dict, num_of_films: int) -> list:
     """
     Returns descending list of {num_of_films} tuples (film name, amount of keywords) 
     >>> keywords={'unwashed-dishes': ['Withnail & I (1987)'], 'civil-war-monument': ['Without Li\
@@ -33,14 +35,16 @@ plosion': ['Without a Paddle (2004)']}
     >>> find_films_with_keywords(keywords,0)
     []
     """
-    temp={}
+    temp = {}
     for key in film_keywords:
         for keyword in film_keywords[key]:
-            temp.setdefault(keyword,0)
-            temp[keyword]+=1
-    temp=sorted(temp.items(),key=lambda x:(-x[1],x[0]))
-    return [(val) for key,val in enumerate(temp) if key<num_of_films]
+            temp.setdefault(keyword, 0)
+            temp[keyword] += 1
+    temp = sorted(temp.items(), key=lambda x: (-x[1], x[0]))
+    return [(val) for key, val in enumerate(temp) if key < num_of_films]
 
-if __name__=='__main__':
+
+if __name__ == "__main__":
     import doctest
+
     print(doctest.testmod())

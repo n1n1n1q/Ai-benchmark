@@ -2,6 +2,7 @@
 Keyword processor
 """
 
+
 def find_film_keywords(film_keywords: dict, film_name: str) -> set:
     """
     Returns a set of keywords for a certain film.
@@ -42,6 +43,8 @@ plosion': ['Without a Paddle (2004)']}
     temp = sorted(temp.items(), key=lambda x: (-x[1], x[0]))
     return [(val) for key, val in enumerate(temp) if key < num_of_films]
 
-if __name__=='__main__':
+
+if __name__ == "__main__":
     import doctest
+
     print(doctest.testmod())

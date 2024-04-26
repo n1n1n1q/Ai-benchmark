@@ -2,6 +2,7 @@
 Flatten gtp-3.5
 """
 
+
 def flatten(lst):
     if not isinstance(lst, list):
         return lst

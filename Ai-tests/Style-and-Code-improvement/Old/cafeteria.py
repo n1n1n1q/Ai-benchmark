@@ -1,35 +1,20 @@
 """Cafeteroum"""
 
-
 RECIPE = {
-        "espresso": {
-            'espresso': 30},
-        "latte": {
-            'espresso': 60,
-            'steamed_milk': 120, 
-            'foamed_milk': 15},
-        "macchiato": {
-            'espresso': 60,
-            'foamed_milk': 15},
-        "flat white": {
-            'espresso': 60,
-            'steamed_milk': 120},
-        "dopio": {
-            'espresso': 60},
-        "cappuccino": {
-            'espresso': 60,
-            'steamed_milk': 60, 
-            'foamed_milk': 60},
-        "lungo": {
-            'espresso': 90},
-        "cortado": {
-            'espresso': 60,
-            'steamed_milk': 60}
-            }
+    "espresso": {"espresso": 30},
+    "latte": {"espresso": 60, "steamed_milk": 120, "foamed_milk": 15},
+    "macchiato": {"espresso": 60, "foamed_milk": 15},
+    "flat white": {"espresso": 60, "steamed_milk": 120},
+    "dopio": {"espresso": 60},
+    "cappuccino": {"espresso": 60, "steamed_milk": 60, "foamed_milk": 60},
+    "lungo": {"espresso": 90},
+    "cortado": {"espresso": 60, "steamed_milk": 60},
+}
 
 
 class Coffee:
     """Coffe object"""
+
     __recipe: dict = {}
 
     def __init__(self, name: str, count: int = 1) -> None:
@@ -69,19 +54,20 @@ class Coffee:
 
     @property
     def espresso(self):
-        """Return quantity of espresso in coffee""" 
-        return self.__recipe[self.name]['espresso'] * self.count
+        """Return quantity of espresso in coffee"""
+        return self.__recipe[self.name]["espresso"] * self.count
 
     @property
     def beans(self) -> int:
         """Return number of beans to prepare this coffee"""
-        return self.espresso // self.__recipe['espresso']['espresso'] * 6
+        return self.espresso // self.__recipe["espresso"]["espresso"] * 6
 
     @property
     def milk(self):
         """Return quantity of milk in coffee"""
-        milk_for_one_coffee = self.__recipe[self.name].get("steamed_milk", 0) + \
-               self.__recipe[self.name].get("foamed_milk", 0)
+        milk_for_one_coffee = self.__recipe[self.name].get(
+            "steamed_milk", 0
+        ) + self.__recipe[self.name].get("foamed_milk", 0)
         return milk_for_one_coffee * self.count
 
 
@@ -90,7 +76,7 @@ class FlavorMixin:
 
     def add_flavor(self, sugar: int, cinammon: bool, syrup: str) -> str:
         """Add flavor to coffe"""
-        if not getattr(self, 'is_paid', False):
+        if not getattr(self, "is_paid", False):
             return "Please, pay for it."
 
         self.sugar = self.count * sugar
@@ -110,13 +96,15 @@ class CustomCoffee(Coffee, FlavorMixin):
         super().__init__(name=name, count=count)
         FlavorMixin.__init__(self)
 
-        if hasattr(self, 'is_paid'):
+        if hasattr(self, "is_paid"):
             self.flavor = False
 
     def __eq__(self, other: Coffee) -> bool:
-        flavor_eq = getattr(self, 'sugar', 0) == getattr(other, 'sugar', 0) and \
-               getattr(self, 'cinammon', False) == getattr(other, 'cinammon', False) and \
-               getattr(self, 'syrup', '') == getattr(other, 'syrup', '')
+        flavor_eq = (
+            getattr(self, "sugar", 0) == getattr(other, "sugar", 0)
+            and getattr(self, "cinammon", False) == getattr(other, "cinammon", False)
+            and getattr(self, "syrup", "") == getattr(other, "syrup", "")
+        )
         return super().__eq__(other) and flavor_eq
 
     def __repr__(self) -> str:
@@ -131,13 +119,13 @@ class CustomCoffee(Coffee, FlavorMixin):
 
         flavors = []
 
-        if getattr(self, 'sugar', 0):
+        if getattr(self, "sugar", 0):
             flavors.append(f"{self.sugar} stickers of sugar")
 
-        if getattr(self, 'cinammon', False):
+        if getattr(self, "cinammon", False):
             flavors.append("cinammon")
 
-        if getattr(self, 'syrup', ""):
+        if getattr(self, "syrup", ""):
             flavors.append(f"{self.syrup} syrup")
 
         return f"Your best {self.name} is ready! It has: {', '.join(flavors)}."
@@ -145,15 +133,16 @@ class CustomCoffee(Coffee, FlavorMixin):
 
 class Track:
     """Daily orders tracker"""
+
     MENU = {
-        "espresso":  40,
+        "espresso": 40,
         "latte": 70,
         "flat white": 70,
-        "dopio":  50,
-        "cappuccino":  60,
+        "dopio": 50,
+        "cappuccino": 60,
         "lungo": 50,
         "cortado": 55,
-        "mocca": 60
+        "mocca": 60,
     }
 
     __beans = 5000
@@ -230,20 +219,20 @@ def test_cafeteria_class():
     """
     print("Testing Cafeteria class...")
     # We track the orders during the day
-    day_track = Track('07.02.2024')
-    day_track.date = '07.02.2024'
+    day_track = Track("07.02.2024")
+    day_track.date = "07.02.2024"
     # Our cafeteria has a lot of different beverages in the menu and
     # all of them are connected to coffee.
     # The cafeteria use classical RECIPE that provided as a
     # constant.
-    order1 = Coffee('latte')
-    assert str(order1) == 'Order cannot be created. Recipe has not been set.'
+    order1 = Coffee("latte")
+    assert str(order1) == "Order cannot be created. Recipe has not been set."
     # We need to set the recipe before creating the instances.
-    assert order1.__dict__ == {'name': 'latte', 'count': 1}
+    assert order1.__dict__ == {"name": "latte", "count": 1}
     Coffee.set_recipe(RECIPE)
     # A client can order only some kind of coffee.
-    order1 = Coffee('latte', 2)
-    assert order1.name == 'latte'
+    order1 = Coffee("latte", 2)
+    assert order1.name == "latte"
     assert order1.count == 2
     # also when the client ask for some order the is_paid attribute is
     # created and it is False from the start.
@@ -254,126 +243,146 @@ def test_cafeteria_class():
     # and milk in ml.
     assert order1.espresso == 120
     assert order1.milk == 270
-    assert Coffee._Coffee__recipe[order1.name] == {'espresso': 60, 'steamed_milk': 120, 'foamed_milk': 15}
+    assert Coffee._Coffee__recipe[order1.name] == {
+        "espresso": 60,
+        "steamed_milk": 120,
+        "foamed_milk": 15,
+    }
     assert str(order1) == 'Order "2 latte" is created.'
 
-    #now we are ready to place this order
+    # now we are ready to place this order
     assert Track.MENU == {
-        "espresso":  40,
+        "espresso": 40,
         "latte": 70,
         "flat white": 70,
-        "dopio":  50,
-        "cappuccino":  60,
+        "dopio": 50,
+        "cappuccino": 60,
         "lungo": 50,
         "cortado": 55,
-        "mocca": 60}
-    assert day_track.place_order(order1) == 'Done!'
+        "mocca": 60,
+    }
+    assert day_track.place_order(order1) == "Done!"
     assert order1.price == 140
     assert order1.is_paid == True
-    assert str(order1) == 'Preparing 2 latte...'
+    assert str(order1) == "Preparing 2 latte..."
     assert len(day_track.orders) == 1
 
-    # it is possible that we have a coffee in recipe but 
+    # it is possible that we have a coffee in recipe but
     # don't have in a menu
     order2 = Coffee("macchiato")
     assert str(order2) == 'Order "1 macchiato" is created.'
-    assert order2.__dict__ == {'name': 'macchiato', 'count': 1, 'is_paid': False}
-    assert day_track.place_order(order2) == "Unfortunately, we don't have such kind of coffee in the menu."
+    assert order2.__dict__ == {"name": "macchiato", "count": 1, "is_paid": False}
+    assert (
+        day_track.place_order(order2)
+        == "Unfortunately, we don't have such kind of coffee in the menu."
+    )
     assert len(day_track.orders) == 1
 
     order2 = Coffee("mocca")
     assert str(order2) == "Order cannot be created. We don't have recipe for it."
-    assert order2.__dict__ == {'name': 'mocca', 'count': 1}
-    # Each customer can ask for adding sugar, cinammon or syrup 
+    assert order2.__dict__ == {"name": "mocca", "count": 1}
+    # Each customer can ask for adding sugar, cinammon or syrup
     # thus creating custom coffee.
-    order2 = CustomCoffee('cappuccino')
+    order2 = CustomCoffee("cappuccino")
     assert isinstance(order2, CustomCoffee)
     assert isinstance(order2, Coffee)
     assert isinstance(order2, FlavorMixin)
     assert not isinstance(order1, CustomCoffee)
     assert not isinstance(order1, FlavorMixin)
 
-    assert order2.name == 'cappuccino'
+    assert order2.name == "cappuccino"
     assert order2.count == 1
     assert order2.espresso == 60
     assert order2.milk == 120
     assert order2.flavor == False
 
-    assert day_track.place_order(order2) == 'Done!'
+    assert day_track.place_order(order2) == "Done!"
     assert len(day_track.orders) == 2
-    assert str(order2) == 'Preparing 1 cappuccino...'
+    assert str(order2) == "Preparing 1 cappuccino..."
     assert order2.price == 60
 
-    assert order2.add_flavor(2, True, 'almond') == 'Done!'
-    assert order2.sugar == 2 #number of stickers
-    assert order2.cinammon == True #just to add some
-    assert order2.syrup == 'almond' #type of syrup
-    assert str(order2) == 'Your best cappuccino is ready! It has: 2 stickers of sugar, cinammon, almond syrup.'
+    assert order2.add_flavor(2, True, "almond") == "Done!"
+    assert order2.sugar == 2  # number of stickers
+    assert order2.cinammon == True  # just to add some
+    assert order2.syrup == "almond"  # type of syrup
+    assert (
+        str(order2)
+        == "Your best cappuccino is ready! It has: 2 stickers of sugar, cinammon, almond syrup."
+    )
 
-    #of course we track the orders
-    assert str(day_track.orders) == '[2 latte, 1 custom cappuccino]'
+    # of course we track the orders
+    assert str(day_track.orders) == "[2 latte, 1 custom cappuccino]"
     assert day_track.total_revenue() == 200
     assert day_track.total_milk() == 390
-    #we need approx 6 grams of coffee beans to prepare 
+    # we need approx 6 grams of coffee beans to prepare
     # one espresso
     assert day_track.total_beans() == 36
     assert not isinstance(order2, Track)
     # of course we have some reserves of milk and beans
     # but they are limited. At the beginning of the day we usually
-    #have 20 litres of milk and 5 kg of beans
+    # have 20 litres of milk and 5 kg of beans
     assert Track._Track__beans == 5000
     assert Track._Track__milk == 20000
     assert day_track.beans == 4964
     assert day_track.milk == 19610
 
-    order3 = Coffee('Irish Coffee', 3)
+    order3 = Coffee("Irish Coffee", 3)
     # unfortunately we don't have this kind of drinks
     # please let our customer know about it
     assert day_track.orders == [order1, order2]
 
-
-    order3 = CustomCoffee('latte', 2)
+    order3 = CustomCoffee("latte", 2)
     assert order3 == order1
-    assert order3.add_flavor(3, False, 'green banana') == 'Please, pay for it.'
-    assert day_track.place_order(order3) == 'Done!'
-    assert order3.add_flavor(3, False, 'green banana') == 'Done!'
+    assert order3.add_flavor(3, False, "green banana") == "Please, pay for it."
+    assert day_track.place_order(order3) == "Done!"
+    assert order3.add_flavor(3, False, "green banana") == "Done!"
     assert order3.sugar == 6
-    assert str(order3) == 'Your best latte is ready! It has: 6 stickers of sugar, green banana syrup.'
+    assert (
+        str(order3)
+        == "Your best latte is ready! It has: 6 stickers of sugar, green banana syrup."
+    )
     assert order3 != order1
-    
+
     # Sometimes we have situation when the milk spoiled
     # in grams
     day_track.milk_spoil(19340)
     assert day_track.milk == 0
-    order4 = Coffee('latte', 2)
-    assert day_track.place_order(order4) == "Unfortunately, we don't have enough ingredients."
+    order4 = Coffee("latte", 2)
+    assert (
+        day_track.place_order(order4)
+        == "Unfortunately, we don't have enough ingredients."
+    )
     assert len(day_track.orders) == 3
-    #oneday our founder bought new fridge
+    # oneday our founder bought new fridge
     # and we can store more milk
     Track.set_limit_milk(30000)
     assert Track._Track__milk == 30000
 
-
     order5 = "Coffee"
     assert not isinstance(order5, CustomCoffee)
-    assert day_track.place_order(order5) == "We can't create anything that is not a Coffee instance."
+    assert (
+        day_track.place_order(order5)
+        == "We can't create anything that is not a Coffee instance."
+    )
 
-    #and sure we don't work in air alert time
+    # and sure we don't work in air alert time
     Track.change_air_state()
     assert Track.safety == False
-    order6 = CustomCoffee('lungo', 2)
-    assert day_track.place_order(order6) == 'Unfortunately, now it is not safe to make coffee.'
+    order6 = CustomCoffee("lungo", 2)
+    assert (
+        day_track.place_order(order6)
+        == "Unfortunately, now it is not safe to make coffee."
+    )
     Track.change_air_state()
     assert Track.safety == True
-    order6 = CustomCoffee('lungo')
+    order6 = CustomCoffee("lungo")
     assert str(order6) == 'Order "1 custom lungo" is created.'
-    assert day_track.place_order(order6) == 'Done!'
-    assert day_track.total_revenue() ==  390
+    assert day_track.place_order(order6) == "Done!"
+    assert day_track.total_revenue() == 390
     assert day_track.total_milk() == 660
     assert day_track.total_beans() == 78
-    print('Done!')
+    print("Done!")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test_cafeteria_class()
-
