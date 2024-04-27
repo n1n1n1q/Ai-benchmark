@@ -19,76 +19,74 @@
 	\maketitle
 	\renewcommand{\thesection}{\arabic{section}}+
 	\section{Introduction}
-		
-			In this little research, our team researched AI’s capability to write unittests.
+
+			In this little research, our team looked into AI’s capability of writing unittests.
 In this part, we tested only \textbf{ChatGPT-3.5} Here, we will provide only aggregate
-conclusions about \textit{test creation, test diagnosis \& fix, coverage and optimization}. Full list of
-used tasks with some statistical data as \textit{used number of prompts, number of test cases}, and a detailed summary of each task can be found in
-		\href{https://docs.google.com/spreadsheets/d/1qXPyAJsOOpmtxIoGqObwG5mTaLU3IWO0SQRGbjZPhEc/edit#gid=0}{table on the third sheet}. Also, we have the \href{https://github.com/n1n1n1q/Ai-benchmark/tree/main/Ai-tests/Tests-Writing}{GitHub} where you can find used problems code, tests and AI's optimization of existing tests.
-		
+conclusions about \textit{test creation, test diagnosis \& fixes, coverage and optimization}. Full list of
+used tasks with some statistical data, such as \textit{used number of prompts, number of test cases}, and a detailed summary of each task can be found in
+		\href{https://docs.google.com/spreadsheets/d/1qXPyAJsOOpmtxIoGqObwG5mTaLU3IWO0SQRGbjZPhEc/edit#gid=0}{table on the third sheet}. Also, we have the \href{https://github.com/n1n1n1q/Ai-benchmark/tree/main/Ai-tests/Tests-Writing}{GitHub repository} where you can find used problems code, tests and AI's optimization of existing tests.
+
 	\section{Test creation}
-		Generally, ChatGPT demonstrated a decent capability of test writing. It can properly identify ordinary test cases (as object initialization, special methods tests or simple function calls) as well as corner cases tests. 
-For example, in problem \href{https://cms.ucu.edu.ua/mod/vpl/view.php?id=356223}{Line} ChatGPT created
-by itself for edge cases tests like intersection of collinear or perpendicular lines. Moreover, AI suggests 
+		Generally, ChatGPT demonstrated a decent capability of test writing. It can properly identify ordinary test cases (such as object initialization, special methods tests or simple function calls) as well as edge cases tests.
+For example, in problem \href{https://cms.ucu.edu.ua/mod/vpl/view.php?id=356223}{Line} ChatGPT managed to create tests for edge cases like intersection of collinear or perpendicular lines by itself. Moreover, AI suggests
 writing performance test cases. But, from the first prompt, you can't get all the test cases that ChatGPT can give you.
-To extend test case base, you should better prompt the following:
-		
+To extend test case base, it is recommended to use the following prompts:
+
 		\begin{itemize}
 			\item Do you have any suggestions to make more comprehensive tests?
 			\item Can you add these cases to existing?
 			\item Ensure that corner cases for \{method\} are satisfied
 			\item Add test for \{edge case\}
 		\end{itemize}
-		
-		These two prompts combined worked far better than simple "Make test cases more comprehensive.". 
-We assume it's because ChatGPT was trained more on articles, books forums discussions with code examples, so it is easier for it  to firstly make linkage to the description of required tests and only then write code by that description.
-		
-	
+
+		These prompts combined worked far better than simple "Make test cases more comprehensive".
+Our assumption is that the reason for this might be that ChatGPT was trained more on articles, books, forums and discussions with code examples, rather than just code itsef, therefore, it cannot establish a connection between the given code and required tests and performs better at creating tests from the problem or test description.
+
+
 	\section{Test diagnosis \& fix}
-		
-		Sometimes (actually usually) ChatGPT creates invalid tests. In most cases, it happens when you ask AI to 
-extend test cases. We assume that's because AI can't process all consequences of its decisions.
-Alas, tested LLM can't resolve the problem even if user points to the invalid test case. 
-If you write something like: "Test \{test\_name\}" is invalid, ChatGPT will send you the same incorrect code, even if 
-you said again that test is wrong. So, when fixing unittests with AI. You should try the following prompts:
-		
+
+		Sometimes (in fact, usually) ChatGPT creates invalid tests. Most of the time, it happens when you ask AI to
+extend test cases. We assume this is due to the fact that AI can't process all the consequences of its decisions.
+Alas, tested LLM can't resolve the problem even if user points out the invalid test case.
+If you write something like: "Test \{test\_name\}" is invalid, ChatGPT will send you the same incorrect code, even if
+you said again that test is wrong. So, when fixing unittests with AI, you should try using the following prompts:
+
 		\begin{itemize}
 			\item Your test \{function\_name\} works incorrectly, because \{reason\}
 			\item In test \{function\_name\} you do \{this\}, but should do \{that\}
 			\item You have an error on line \{line number\} \{error exception\}
 		\end{itemize}
-		
-	\section{Coverage}
-	
-	ChatGPT showed a great capability of writing tests with 100\% coverage. Even if it didn't manage to cover all code from 
-one prompt, another pair of messages, is needed to cover 100\% of code. Although ChatGPT can cover 100\% of code, it 
-correctly identify what code is not covered in other cases. We explain it this way. When GPT sees a problem to which 
-it must write tests, it doesn't really go through code, analyses connections as humans do, It rather gets the code,
-and "search" in train data, similar cases, so 100\% coverage is not a result of code analysis, but rather mixing of
-AI knowledge base to particular task. Also, that's why, prompt like "your test cases do not cover line 42 doesn't work",
-user also must provide a reason why code on 42nd line doesn't work
 
-The following prompts can be helpful, when someone tries to increase code coverage with ChatGPT:
+	\section{Coverage}
+
+	ChatGPT showed a great capability of writing tests with 100\% coverage. Even if it didn't manage to cover all code from
+one prompt, just a few more messages are needed to cover 100\% of the code. Although ChatGPT can cover 100\% of the code, it cannot
+correctly identify what code is not covered yet. This is how we would explain this: when GPT sees a problem  and is required to write tests to the problem, it does not really go through the code and does not analyze connections the way humans do, instead it gets the code,
+and "searches" for similar cases in its train data, so 100\% coverage is not a result of code analysis, but rather a mix of
+AI knowledge base to particular task. That's the reason why prompts like "your test cases do not cover line \{line number\}" do not work, so the
+user must also provide a reason why code on a specific line does not work.
+
+The following prompts can be helpful, when someone tries to increase the code coverage with ChatGPT:
 		\begin{itemize}
-			\item The same prompts as in \textbf{Test creation} section
-			\item Your tests has small coverage, fix 
+			\item The same prompts as in the \textbf{Test creation} section
+			\item Your tests have small coverage, fix this
 			\item Your tests doesn't cover line \textbf{[line number]}, because \textbf{[reason]}
-			
+
 		\end{itemize}
-	
+
 	\section{Optimization}
-	
-	In most cases, ChatGPT showed no capabilities of test optimizations. It could only make style improvement, or adding 
-setUp() and tearDown() methods. Of course, when user asks AI to optimize code, it returns "optimized" version with lots
-of invalid test cases, that again must be fixed manually. Only in one problem Equation \href{https://docs.google.com/spreadsheets/d/1qXPyAJsOOpmtxIoGqObwG5mTaLU3IWO0SQRGbjZPhEc/edit#gid=0}{(see in table on the third sheet)}, AI decided to split huge TestCase into smaller, and it somehow decreased runtime from 0.7 to 0.6 seconds. But, in general, we see no benefit of optimizing unittests with ChatGPT.
-	
+
+	In most cases, ChatGPT showed no capabilities of test optimization. It could only make style improvements, or add
+setUp() and tearDown() methods. When user asks AI to optimize the code, it returns the "optimized" version with lots
+of invalid test cases, that again must be fixed manually. Only in the problem Equation \href{https://docs.google.com/spreadsheets/d/1qXPyAJsOOpmtxIoGqObwG5mTaLU3IWO0SQRGbjZPhEc/edit#gid=0}{(see in table on the third sheet)}, AI decided to split a huge TestCase into smaller ones, and it somehow decreased runtime from 0.7 to 0.6 seconds. But, in general, we see no benefit of optimizing unittests with ChatGPT.
+
 	\section{Recommendations \& Conclusions}
-	
-	To sum up, AI is a powerful tool for generating simple unittest. Despite that fact, it has many disadvantages: 
-can't really analyze code and usually sends invalid test cases that can be fixed only with manual directions. 
-Thus, we conclude that AI should be used to generate unittest templates (to avoid routine work of writing test for special 
+
+	To sum up, AI is a powerful tool for generating simple unittests. Despite this fact, it has many disadvantages:
+can't really analyze code and usually sends invalid test cases that can be fixed only with manual directions.
+Thus, we conclude that AI should be used to generate unittest templates (to avoid routine work of writing test for special
 methods) that further must be reviewed and finalized by QA.
 
-	
-	
+
+
 \end{document}
