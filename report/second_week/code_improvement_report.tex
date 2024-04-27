@@ -69,34 +69,34 @@
 
 	\section{Corner cases problem optimization}
 
-			Furthermore, we have tested how AI can work with Pandas in the \href{https://docs.google.com/spreadsheets/d/1qXPyAJsOOpmtxIoGqObwG5mTaLU3IWO0SQRGbjZPhEc/edit#gid=0}{table \#2, rows 8-9} and OOP, row 10. In conclusion, ChatGPT manages to understand the purpose of
-			the functions and tries to improve them where possible. In both Pandas problems
-			it improved the readability of long filters by dividing them into separate blocks but,
-			as was said before, sometimes it changed the order of the operations and, as a result, broke the program. In addition, ChatGPT managed to find unnecessary parts of the code and
-			eliminate them correctly, which improved code memory usage and run-
-			time.
+		Furthermore, we have tested how AI can work with Pandas in the \href{https://docs.google.com/spreadsheets/d/1qXPyAJsOOpmtxIoGqObwG5mTaLU3IWO0SQRGbjZPhEc/edit#gid=0}{table \#2, rows 8-9} and OOP, row 10. In conclusion, ChatGPT manages to understand the purpose of
+		the functions and tries to improve them where possible. In both Pandas problems
+		it improved the readability of long filters by dividing them into separate blocks but,
+		as was said before, sometimes it changed the order of the operations and, as a result, broke the program. In addition, ChatGPT managed to find unnecessary parts of the code and
+		eliminate them correctly, which improved code memory usage and run-
+		time.
 
-			In OOP optimization, we noticed the following AI behaviors:
+		In OOP optimization, we noticed the following AI behaviors:
 
-			\begin{itemize}
-				\item It tends to select parts of the script (classes) where optimization is mostly
-				needed and sends only the changed version of those parts - and this is very
-				convenient. On the other hand, when AI does that, it usually forgets about the
-				existence of other classes in the script.
-				\item It tends to forget to include all methods in the optimized version and
-				to inherit all parent classes.
-				\item It does not totally understand OOP principles and can move methods
-				from base to child classes.
-			\end{itemize}
+		\begin{itemize}
+			\item It tends to select parts of the script (classes) where optimization is mostly
+			needed and sends only the changed version of those parts - and this is very
+			convenient. On the other hand, when AI does that, it usually forgets about the
+			existence of other classes in the script.
+			\item It tends to forget to include all methods in the optimized version and
+			to inherit all parent classes.
+			\item It does not totally understand OOP principles and can move methods
+			from base to child classes.
+		\end{itemize}
 
-			Therefore, when you try to optimize OOP through AI, these issues should be taken
-			into consideration. It’s better to use the following prompts:
+		Therefore, when you try to optimize OOP through AI, these issues should be taken
+		into consideration. It’s better to use the following prompts:
 
-			\begin{itemize}
-				\item Please optimize this code \textbf{\textit{\{code\}}} this is the problem description
-				\textbf{\textit{\{problem\_statement\}}} and the required test cases \textbf{\textit{\{test\_cases\}}}.
-				\item Optimize code, do not remove distinct classes.
-				\item Do not copy methods from parent classes to child classes.
+		\begin{itemize}
+			\item Please optimize this code \textbf{\textit{\{code\}}} this is the problem description
+			\textbf{\textit{\{problem\_statement\}}} and the required test cases \textbf{\textit{\{test\_cases\}}}.
+			\item Optimize code, do not remove distinct classes.
+			\item Do not copy methods from parent classes to child classes.
 	\end{itemize}
 
 	\section{Conclusion}
